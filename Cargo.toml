@@ -1,0 +1,60 @@
+[workspace]
+members = [
+  "crates/*",
+  "utils",
+  
+]
+[workspace.package]
+name = "my-learn-wgpu"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[workspace.dependencies.image]
+version = "0.24"
+default-features = false
+
+[workspace.dependencies]
+app-surface = "0.3.1"
+# app-surface = { git = "https://github.com/jinleili/wgpu-in-app", rev = "0dcf485" }
+# app-surface = { path = "../idroid/wgpu-in-app/app-surface", default-features = false }
+bytemuck = { version = "1.13", features = ["derive"] }
+cfg-if = "1"
+glam = "0.24"
+env_logger = "0.10"
+futures-intrusive = "0.4"
+instant = "0.1"
+log = "0.4"
+naga = { version = "0.13" }
+pollster = "0.3"
+rayon = "1.4"
+tobj = "3.2"
+winit = "0.27.5"
+wgpu = { version = "0.17" } 
+# wgpu = { git = "https://github.com/gfx-rs/wgpu", rev = "757245cd" }
+utils = { path = "utils" }
+
+# wasm32 dependencies
+console_error_panic_hook = "0.1.7"
+console_log = "0.2.0"
+reqwest = { version = "0.11" }
+js-sys = "0.3.64"
+wasm-bindgen = "0.2.87"
+wasm-bindgen-futures = "0.4.34"
+web-sys = "0.3.64"
+
+# build-dependencies
+anyhow = "1.0"
+fs_extra = "1.2"
+glob = "0.3"
+byteorder = "1.5.0"
+
+[profile.release]
+# lto = true # VERY slightly smaller wasm
+# opt-level = 's' # 10-30% smaller wasm compared to `opt-level = 3`
+# opt-level = 1 # very slow and big wasm. Don't do this.
+opt-level = 2 # fast and small wasm, basically same as `opt-level = 's'`
+# opt-level = 3 # unecessarily large wasm for no performance gain
+# debug = true # include debug symbols, useful when profiling wasm
